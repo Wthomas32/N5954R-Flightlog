@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flight Log App</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <iframe src="https://script.google.com/macros/s/AKfycby19iNQNUYxMH1sLl1JeMF3L1ORiozCAml4qXekqy4t7LG1f28w16Nm8KmY2zh_ly-A/exec"></iframe>
+</body>
+</html>
