@@ -1,24 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flight Log App</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Log Form</title>
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+    body { font-family: Arial, sans-serif; padding: 15px; font-size: 18px; }
+    input, button { width: 100%; padding: 12px; margin: 8px 0; font-size: 18px; }
+    button { background-color: #28a745; color: white; border: none; cursor: pointer; }
+    button:hover { background-color: #218838; }
   </style>
 </head>
 <body>
-  <iframe src="https://script.google.com/macros/s/AKfycby19iNQNUYxMH1sLl1JeMF3L1ORiozCAml4qXekqy4t7LG1f28w16Nm8KmY2zh_ly-A/exec"></iframe>
+
+<h2>Flight Log Entry</h2>
+
+<form id="flightForm">
+  <input type="date" name="date" required>
+  <input type="text" name="pilot" placeholder="Pilot Name" required>
+  <input type="number" step="0.1" name="hobbsStart" placeholder="Hobbs Start" required>
+  <input type="number" step="0.1" name="hobbsEnd" placeholder="Hobbs End" required>
+  <input type="number" step="0.1" name="tachStart" placeholder="Tach Start" required>
+  <input type="number" step="0.1" name="tachEnd" placeholder="Tach End" required>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  document.getElementById('flightForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const data = {
+      date: form.date.value,
+      pilot: form.pilot.value,
+      hobbsStart: parseFloat(form.hobbsStart.value),
+      hobbsEnd: parseFloat(form.hobbsEnd.value),
+      tachStart: parseFloat(form.tachStart.value),
+      tachEnd: parseFloat(form.tachEnd.value),
+      totalHobbs: (form.hobbsEnd.value - form.hobbsStart.value).toFixed(1),
+      totalTach: (form.tachEnd.value - form.tachStart.value).toFixed(1),
+    };
+
+    try {
+      const response = await fetch("YOUR_SCRIPT_WEB_APP_URL", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        alert("Flight logged successfully!");
+        form.reset();
+      } else {
+        alert("Failed to submit. Try again.");
+      }
+    } catch (error) {
+      alert("Network error: " + error.message);
+    }
+  });
+</script>
+
 </body>
 </html>
